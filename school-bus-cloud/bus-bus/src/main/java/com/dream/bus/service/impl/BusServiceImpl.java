@@ -31,6 +31,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -82,11 +84,13 @@ public class BusServiceImpl implements IBusService {
             // 获取时间
             String currHours = DateUtil.getHours();
             String day = DateUtil.getDay();
+            String testDay = LocalDate.of(2020, 12, 22).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
+            System.out.println("测试世界======="+testDay);
             System.out.println("当前时间："+currHours);
             System.out.println("当前日期："+day);
             // 判断条件
             queryWrapper
-                    .eq("begin_date", day)
+                    .eq("begin_date", testDay)
                     .ge("begin_time", currHours)
                     .eq("bus_status", request.getBusStatus())
                     .orderByAsc("begin_time");// 时间

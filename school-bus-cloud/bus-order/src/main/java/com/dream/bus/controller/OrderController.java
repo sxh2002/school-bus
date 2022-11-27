@@ -237,39 +237,39 @@ public class OrderController {
     }
 
 //    @GetMapping("addOrderTest")
-    @PostMapping("addOrder")
-    public ResponseData addOrderTest(@RequestBody AddOrderForm form, HttpServletRequest req){
-        try {
-            // id 从本队缓存中取
-            String token = CurrentUser.getToken(req);
-            String userId = jwtTokenUtil.getUsernameFromToken(token);
-            AddOrderRequest request = new AddOrderRequest();
-            request.setBusStatus("0");// 沙河->清水河
-            request.setCountId(Convert.toLong(102)); // 场次1
-            request.setUserId(Convert.toLong(4)); // 4下单
-            request.setCountPrice(4.00);
-            request.setOrderUser("feng");
-            request.setSeatsIds("3,4"); // 座位
-            request.setExpireTime(300); // 过期时间 s
-            AddOrderResponse response = orderService.addOrderTest(request);
-            String countKey = RedisConstants.COUNT_DETAIL_EXPIRE.getKey() + request.getCountId();
-            if (redisUtils.hasKey(countKey)) {
-                redisUtils.del(countKey);
-            }
-            String noPayKey = RedisConstants.NO_PAY_ORDERS_EXPIRE.getKey() + userId;
-            if (redisUtils.hasKey(noPayKey)) {
-                redisUtils.del(noPayKey);
-            }
-            log.warn("addOrder\n");
-            return new ResponseUtil().setData(response);
-        } catch (Exception e) {
-            log.error("addOrderTest\n", e);
-            CommonResponse response = new CommonResponse();
-            response.setCode(SbCode.SYSTEM_ERROR.getCode());
-            response.setMsg(SbCode.SYSTEM_ERROR.getMessage());
-            return new ResponseUtil().setData(response);
-        }
-    }
+//    @PostMapping("addOrder")
+//    public ResponseData addOrderTest(@RequestBody AddOrderForm form, HttpServletRequest req){
+//        try {
+//            // id 从本队缓存中取
+//            String token = CurrentUser.getToken(req);
+//            String userId = jwtTokenUtil.getUsernameFromToken(token);
+//            AddOrderRequest request = new AddOrderRequest();
+//            request.setBusStatus("0");// 沙河->清水河
+//            request.setCountId(Convert.toLong(102)); // 场次1
+//            request.setUserId(Convert.toLong(4)); // 4下单
+//            request.setCountPrice(4.00);
+//            request.setOrderUser("feng");
+//            request.setSeatsIds("3,4"); // 座位
+//            request.setExpireTime(300); // 过期时间 s
+//            AddOrderResponse response = orderService.addOrderTest(request);
+//            String countKey = RedisConstants.COUNT_DETAIL_EXPIRE.getKey() + request.getCountId();
+//            if (redisUtils.hasKey(countKey)) {
+//                redisUtils.del(countKey);
+//            }
+//            String noPayKey = RedisConstants.NO_PAY_ORDERS_EXPIRE.getKey() + userId;
+//            if (redisUtils.hasKey(noPayKey)) {
+//                redisUtils.del(noPayKey);
+//            }
+//            log.warn("addOrder\n");
+//            return new ResponseUtil().setData(response);
+//        } catch (Exception e) {
+//            log.error("addOrderTest\n", e);
+//            CommonResponse response = new CommonResponse();
+//            response.setCode(SbCode.SYSTEM_ERROR.getCode());
+//            response.setMsg(SbCode.SYSTEM_ERROR.getMessage());
+//            return new ResponseUtil().setData(response);
+//        }
+//    }
 
 
     @PostMapping("localUpdateOrderStatus")

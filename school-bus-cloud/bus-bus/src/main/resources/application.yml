@@ -5,15 +5,15 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 39.108.93.119:8848
+        server-addr: localhost:8848
 
   application:
     name: bus-bus
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://39.108.93.119:3306/school_bus?serverTimezone=UTC&useSSL=false&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/school_bus?serverTimezone=UTC&useSSL=false&characterEncoding=UTF-8
     username: root
-    password: 123456
+    password: "0523"
     hikari:
       maximum-pool-size: 20
       max-lifetime: 1800000
@@ -22,9 +22,9 @@ spring:
 
   redis:
     database: 0
-    host: 39.108.93.119
-    port: 6179
-    password: 123
+    host: 192.168.127.111
+    port: 6379
+    password: root
     timeout: 5000ms
     jedis:
       pool:
@@ -46,7 +46,7 @@ logging:
 
 
 rocketmq:
-  name-server: 39.108.93.119:9876
+  name-server: 192.168.127.111:9876
   producer:
     group: orderProducerGroup
 
